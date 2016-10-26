@@ -25,8 +25,13 @@ class MySql {
     }
 
 
-    function getLocations(){
+    function getLocations($category){
         $sql = "SELECT * FROM Locations";
+        
+        if($category > 0){
+                $sql .= " WHERE `category` = ".$category;
+        }
+        
         $result = mysql_query($sql, $this->connection); 
         $locations = null;
         while($row = mysql_fetch_array($result)){
@@ -54,7 +59,7 @@ switch ($action) {
         echo $database->getCategories();
         break;
     case 'getLocations':
-        echo $database->getLocations();
+        echo $database->getLocations($category);
         break;
     case 'putLocation':
         $database->putLocation($data);
