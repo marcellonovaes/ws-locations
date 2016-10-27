@@ -24,6 +24,10 @@ class MySql {
         return json_encode($categories);
     }
 
+    function putCategory($label){
+        $sql = "INSERT INTO `Categories` (`_ID`, `label`) VALUES (NULL, '$label')";
+        mysql_query($sql, $this->connection); 
+    }
 
     function getLocations($category){
         $sql = "SELECT * FROM Locations";
@@ -57,6 +61,9 @@ $database = new MySql();
 switch ($action) {
     case 'getCategories':
         echo $database->getCategories();
+        break;
+    case 'putCategory':
+        $database->putCategory($label);
         break;
     case 'getLocations':
         echo $database->getLocations($category);
